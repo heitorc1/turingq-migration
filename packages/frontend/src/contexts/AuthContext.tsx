@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { useState } from 'react';
+import { useKeycloak } from '@react-keycloak/web';
 import AuthService from '../services/AuthService';
 
 const Context = React.createContext({
@@ -18,6 +19,23 @@ export const AuthStore: React.FC<AuthStoreProps> = ({
   const [loggedIn, setLoggedIn] = useState(false);
 
   if (!loggedIn && AuthService.getAuthToken()) {
+    setLoggedIn(true);
+  }
+
+  return (
+    <Context.Provider value={{ loggedIn, setLoggedIn }}>
+      {children}
+    </Context.Provider>
+  );
+};
+
+export const KeycloakAuthStore: React.FC<AuthStoreProps> = ({
+  children,
+}: AuthStoreProps) => {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const { keycloak } = useKeycloak();
+
+  if (!loggedIn && keycloak.authenticated) {
     setLoggedIn(true);
   }
 
