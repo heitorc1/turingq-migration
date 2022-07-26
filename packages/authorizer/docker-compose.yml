@@ -29,11 +29,10 @@ services:
       KEYCLOAK_URL: http://turingq-authorizer-dev:8080/auth
       KEYCLOAK_USER: ${KEYCLOAK_USER}
       KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
-      KEYCLOAK_AVAILABILITYCHECK_ENABLED: 'true'
-      KEYCLOAK_SSLVERIFY: 'true'
-      IMPORT_PATH: /config
+      KEYCLOAK_AVAILABILITYCHECK_ENABLED: true
+      KEYCLOAK_SSLVERIFY: true
     volumes:
-      - ./config/turingq.json:/config/turingq.json
+      - ./config:/config
     networks:
       - turingq-keycloak-net
     depends_on:
@@ -51,6 +50,8 @@ services:
       - ./database:/var/lib/postgresql/data
     ports:
       - ${PG_PORT}:5432
+    depends_on:
+      - authorizer-config
     networks:
       - turingq-keycloak-data-net
 
