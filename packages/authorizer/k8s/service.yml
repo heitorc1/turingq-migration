@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: authorizer-service
+  namespace: default
+spec:
+  selector:
+    app: authorizer
+
+  type: NodePort
+
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      nodePort: 30000
