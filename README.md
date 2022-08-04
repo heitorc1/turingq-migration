@@ -35,6 +35,7 @@ lerna list
 - Iniciar cluster
 
 ```
+docker compose -f resources/registry/docker-compose.yml up -d
 sh resources/kubernetes/create-kind-cluster.sh
 kubectl cluster-info --context kind-turingq-local
 npm run deploy:local:authorizer
@@ -45,4 +46,5 @@ npm run deploy:local:core
 
 ```
 kind delete cluster --name=turingq-local
+docker compose -f resources/registry/docker-compose.yml down
 ```
