@@ -29,3 +29,20 @@ lerna add <dependency/package> --scope <package>
 ```
 lerna list
 ```
+
+### Iniciar projeto
+
+- Iniciar cluster
+
+```
+sh resources/kubernetes/create-kind-cluster.sh
+kubectl cluster-info --context kind-turingq-local
+npm run deploy:local:authorizer
+npm run deploy:local:core
+```
+
+- Remover cluster
+
+```
+kind delete cluster --name=turingq-local
+```

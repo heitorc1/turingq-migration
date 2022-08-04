@@ -1,5 +1,5 @@
 import Database from '@ioc:Adonis/Lucid/Database'
-import * as faker from 'faker'
+import { faker } from '@faker-js/faker'
 import test from 'japa'
 
 import Question from 'App/Models/Question'
