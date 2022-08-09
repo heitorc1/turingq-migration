@@ -40,6 +40,7 @@ sh resources/kubernetes/create-kind-cluster.sh
 kubectl cluster-info --context kind-turingq-local
 npm run deploy:local:authorizer
 npm run deploy:local:core
+npm run deploy:local:frontend
 ```
 
 - Remover cluster
