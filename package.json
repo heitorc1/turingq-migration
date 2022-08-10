@@ -26,7 +26,9 @@
     "kubernetes:setup:frontend": "kubectl apply -f packages/frontend/k8s",
     "deploy:local:authorizer": "run-s docker:prepare-local-image:authorizer-config kubernetes:setup:authorizer",
     "deploy:local:core": "run-s docker:prepare-local-image:core kubernetes:setup:core",
-    "deploy:local:frontend": "run-s docker:prepare-local-image:frontend kubernetes:setup:frontend"
+    "deploy:local:frontend": "run-s docker:prepare-local-image:frontend kubernetes:setup:frontend",
+    "kubernetes:all:setup": "run-p kubernetes:setup:*",
+    "deploy:all:local": "run-s docker:all:prepare-local-image kubernetes:all:setup"
   },
   "devDependencies": {
     "adonis-preset-ts": "^2.1.0",
