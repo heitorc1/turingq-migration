@@ -2,39 +2,67 @@ version: '3'
 
 services:
   authorizer:
-    image: quay.io/keycloak/keycloak:15.0.2
+    image: quay.io/keycloak/keycloak:18.0.1
     container_name: turingq-authorizer-dev
     restart: always
     environment:
-      KEYCLOAK_USER: ${KEYCLOAK_USER}
-      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
+      KEYCLOAK_ADMIN: ${KEYCLOAK_USER}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_PASSWORD}
       DB_VENDOR: POSTGRES
       DB_ADDR: turingq-authorizer-database-dev
       DB_DATABASE: ${PG_DB_NAME}
       DB_USER: ${PG_USER}
       DB_PASSWORD: ${PG_PASSWORD}
       DB_SCHEMA: public
+    command: ['start-dev']
     ports:
       - ${KEYCLOAK_PORT}:8080
     networks:
       - turingq-keycloak-net
+    depends_on:
+      - authorizer-database
 
   authorizer-config:
-    image: quay.io/adorsys/keycloak-config-cli:latest-15.0.2
+    image: quay.io/adorsys/keycloak-config-cli:latest-18.0.1
     container_name: turingq-authorizer-config-dev
     environment:
-      KEYCLOAK_URL: http://turingq-authorizer-dev:8080/auth
+      KEYCLOAK_URL: http://turingq-authorizer-dev:8080
       KEYCLOAK_USER: ${KEYCLOAK_USER}
       KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
-      KEYCLOAK_AVAILABILITYCHECK_ENABLED: true
-      KEYCLOAK_SSLVERIFY: true
+      KEYCLOAK_AVAILABILITYCHECK_ENABLED: 'true'
+      KEYCLOAK_SSLVERIFY: 'false'
+      IMPORT_FILES: /config
     volumes:
-      - ./config:/config
+      - ./config/turingq.json:/config/turingq.json
     networks:
       - turingq-keycloak-net
     depends_on:
+      - authorizer-database
       - authorizer
+
+  authorizer-database:
+    image: postgres:13-alpine
+    container_name: turingq-authorizer-database-dev
+    restart: always
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DB_NAME}
+    volumes:
+      - ituring-authorizer-db-data:/var/lib/postgresql/data
+    ports:
+      - ${PG_PORT}:5432
+    networks:
+      - turingq-keycloak-net
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${PG_USER}']
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 networks:
   turingq-keycloak-net:
     driver: bridge
+
+volumes:
+  ituring-authorizer-db-data:

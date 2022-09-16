@@ -1,5 +1,5 @@
 import Env from '@ioc:Adonis/Core/Env'
-import jwt from 'jsonwebtoken'
+import { verify } from 'jsonwebtoken'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 class KeycloakMiddleware {
@@ -15,7 +15,7 @@ class KeycloakMiddleware {
       const formattedTokenSignaturePublicKey = `-----BEGIN PUBLIC KEY-----\r\n${this.tokenSignaturePublicKey}\r\n-----END PUBLIC KEY-----`
 
       try {
-        const decodedAccessToken = jwt.verify(
+        const decodedAccessToken = verify(
           token.replace(/^Bearer /, ''),
           formattedTokenSignaturePublicKey
         )
