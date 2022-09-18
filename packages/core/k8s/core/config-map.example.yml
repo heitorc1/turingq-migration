@@ -16,7 +16,7 @@
 #   PG_HOST: 'core-database-service'
 #   PG_PORT: '5432'
 #   PG_DB_NAME: 'ituring'
-#   KEYCLOAK_AUTH_SERVER_URL: 'http://authorizer-service:8080/auth'
+#   KEYCLOAK_AUTH_SERVER_URL: 'http://authorizer-service:8080/admin'
 #   KEYCLOAK_CLIENT_ID: 'turingq-core-client'
 #   KEYCLOAK_REALM: 'turingq'
 #   KEYCLOAK_REALM_TOKEN_SIGNATURE_PUBLIC_KEY: 'please-find-me-on-keycloak'

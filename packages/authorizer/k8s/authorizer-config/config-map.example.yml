@@ -3,7 +3,7 @@
 # metadata:
 #   name: authorizer-config-configmap
 # data:
-#   KEYCLOAK_URL: 'http://authorizer-service:8080/auth'
+#   KEYCLOAK_URL: 'http://authorizer-service:8080/admin'
 #   KEYCLOAK_AVAILABILITYCHECK_ENABLED: 'true'
 #   KEYCLOAK_SSLVERIFY: 'false'
 #   IMPORT_PATH: '/config'
