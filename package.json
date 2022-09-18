@@ -21,7 +21,7 @@
     "docker:all:local-tag": "run-p docker:local:tag:*",
     "docker:all:local-push": "run-p docker:local:push:*",
     "docker:all:prepare-local-image": "run-p docker:prepare-local-image:*",
-    "kubernetes:setup:authorizer": "kubectl apply -f packages/authorizer/k8s -f packages/authorizer/k8s/authorizer-config",
+    "kubernetes:setup:authorizer": "kubectl apply -f packages/authorizer/k8s -f packages/authorizer/k8s/authorizer-config -f packages/authorizer/k8s/database",
     "kubernetes:setup:core": "kubectl apply -f packages/core/k8s/core -f packages/core/k8s/database",
     "kubernetes:setup:frontend": "kubectl apply -f packages/frontend/k8s",
     "deploy:local:authorizer": "run-s docker:prepare-local-image:authorizer-config kubernetes:setup:authorizer",
