@@ -2,19 +2,18 @@ version: '3'
 
 services:
   authorizer:
-    image: quay.io/keycloak/keycloak:18.0.1
+    image: quay.io/keycloak/keycloak:15.0.2
     container_name: turingq-authorizer-dev
     restart: always
     environment:
-      KEYCLOAK_ADMIN: ${KEYCLOAK_USER}
-      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_PASSWORD}
+      KEYCLOAK_USER: ${KEYCLOAK_USER}
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
       DB_VENDOR: POSTGRES
       DB_ADDR: turingq-authorizer-database-dev
       DB_DATABASE: ${PG_DB_NAME}
       DB_USER: ${PG_USER}
       DB_PASSWORD: ${PG_PASSWORD}
       DB_SCHEMA: public
-    command: ['start-dev']
     ports:
       - ${KEYCLOAK_PORT}:8080
     networks:
@@ -23,10 +22,10 @@ services:
       - authorizer-database
 
   authorizer-config:
-    image: quay.io/adorsys/keycloak-config-cli:latest-18.0.1
+    image: quay.io/adorsys/keycloak-config-cli:latest-15.0.2
     container_name: turingq-authorizer-config-dev
     environment:
-      KEYCLOAK_URL: http://turingq-authorizer-dev:8080
+      KEYCLOAK_URL: http://turingq-authorizer-dev:8080/auth
       KEYCLOAK_USER: ${KEYCLOAK_USER}
       KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
       KEYCLOAK_AVAILABILITYCHECK_ENABLED: 'true'
