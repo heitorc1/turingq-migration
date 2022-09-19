@@ -24,6 +24,17 @@
       "secret": "core-secret-change-me",
       "clientAuthenticatorType": "client-secret",
       "redirectUris": ["*"]
+    },
+    {
+      "clientId": "turingq-questions-client",
+      "name": "turingq-questions-client",
+      "description": "Questions",
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "questions-microservice-secret-change-me",
+      "serviceAccountsEnabled": true,
+      "redirectUris": ["*"],
+      "webOrigins": ["*"]
     }
   ],
   "users": [
