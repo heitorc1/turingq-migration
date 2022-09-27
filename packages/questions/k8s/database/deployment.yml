@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: authorizer-database-deployment
+  name: questions-database-deployment
   namespace: default
 spec:
   selector:
     matchLabels:
-      app: authorizer-database
+      app: questions-database
   replicas: 1
   template:
     metadata:
       labels:
-        app: authorizer-database
+        app: questions-database
     spec:
       containers:
-        - name: authorizer-database
+        - name: questions-database
           image: postgres:13-alpine
           envFrom:
             - configMapRef:
-                name: authorizer-database-configmap
+                name: questions-database-configmap
             - secretRef:
-                name: authorizer-database-secret
+                name: questions-database-secret
