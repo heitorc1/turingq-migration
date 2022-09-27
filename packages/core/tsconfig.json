@@ -14,13 +14,6 @@
       "Contracts/*": ["./contracts/*"],
       "Database/*": ["./database/*"]
     },
-    "types": [
-      "@adonisjs/core",
-      "@adonisjs/repl",
-      "@adonisjs/shield",
-      "@adonisjs/lucid",
-      "@adonisjs/auth",
-      "@adonisjs/mail"
-    ]
+    "types": ["@adonisjs/core", "@adonisjs/repl", "@adonisjs/shield", "@adonisjs/lucid"]
   }
 }

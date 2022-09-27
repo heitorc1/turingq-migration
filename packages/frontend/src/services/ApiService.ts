@@ -24,16 +24,6 @@ ApiService.interceptors.request.use(
   (
     config: AxiosRequestConfig
   ): AxiosRequestConfig | Promise<AxiosRequestConfig> => {
-    let accessToken;
-
-    const useAuthServer = process.env.REACT_APP_USE_AUTH_SERVER === 'true';
-
-    if (!useAuthServer) {
-      accessToken = localStorage.getItem('token');
-      setAuthorizationToken(config, accessToken);
-      return config;
-    }
-
     if (!keycloakClient.authenticated) {
       return config;
     }
