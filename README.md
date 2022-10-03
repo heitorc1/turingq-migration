@@ -28,9 +28,22 @@ kubectl wait --namespace ingress-nginx \
 
 kubectl apply -f resources/ingress/k8s/ingress.yml
 
-npm run deploy:all:local
+npm run deploy:local:authorizer
 
-kubectl get po
+/*
+*
+* Acessar http://localhost:9090/auth e pegar a chave pública do Realm
+* Substituir em core/k8s/core/config-map.yml
+* Substituir em questions/k8s/questions/config-map.yml
+* KEYCLOAK_REALM_TOKEN_SIGNATURE_PUBLIC_KEY pela chave pública obtida
+*
+*/
+
+npm run deploy:local:core
+npm run deploy:local:frontend
+npm run deploy:local:questions
+npm run deploy:local:subscriptions
+
 ```
 
 - Remover cluster
