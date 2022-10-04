@@ -25,5 +25,26 @@ declare module '@ioc:Adonis/Core/Event' {
   | an instance of the the UserModel only.
   |
   */
-  interface EventsList {}
+  interface EventsList {
+    'answer:arrival': {
+      question: {
+        id: string
+        title: string
+      }
+      answer: {
+        id: string
+        body: string
+      }
+    }
+
+    'subscription:create': {
+      question: {
+        id: string
+      }
+      subscriber: {
+        id: string
+        email: string
+      }
+    }
+  }
 }

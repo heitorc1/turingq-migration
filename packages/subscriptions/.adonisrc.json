@@ -19,8 +19,13 @@
     "./start/kernel",
     {
       "file": "./start/events",
-      "environment": ["console", "repl", "web"]
-    }
+      "environment": [
+        "console",
+        "repl",
+        "web"
+      ]
+    },
+    "./start/subscriptions"
   ],
   "providers": [
     "./providers/AppProvider",
@@ -29,5 +34,7 @@
     "@adonisjs/lucid",
     "@adonisjs/mail"
   ],
-  "aceProviders": ["@adonisjs/repl"]
+  "aceProviders": [
+    "@adonisjs/repl"
+  ]
 }
