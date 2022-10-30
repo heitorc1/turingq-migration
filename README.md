@@ -49,7 +49,7 @@ npm run deploy:local:subscriptions
 - Remover cluster
 
 ```
-kind delete cluster --name=turingq-local
+kind delete clusters turingq-local
 docker compose -f resources/registry/docker-compose.yml down
 ```
 

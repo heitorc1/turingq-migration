@@ -6,11 +6,11 @@ spec:
   template:
     spec:
       containers:
-      - name: authorizer-config
-        image: localhost:5000/turingq-authorizer-config
-        envFrom:
+      - envFrom:
         - configMapRef:
             name: authorizer-config-configmap
         - secretRef:
             name: authorizer-config-secret
+        name: authorizer-config
+        image: localhost:5000/turingq-authorizer-config
       restartPolicy: OnFailure
