@@ -1,0 +1,16 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name:  turingq-aws
+
+  region: us-east-1
+
+  version: '1.21'
+
+  tags:
+    project: TuringQ
+
+managedNodeGroups:
+  - name: turingq-nodes
+    instanceType: t2.medium
+    desiredCapacity: 2
