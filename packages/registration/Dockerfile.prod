@@ -2,7 +2,7 @@ FROM node:16.10-alpine as builder
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-COPY packages/core ./
+COPY packages/registration ./
 RUN npm install \
   && npm run build \
   && cd build \

@@ -16,12 +16,12 @@
       "webOrigins": ["http://localhost:3000"]
     },
     {
-      "clientId": "turingq-core-client",
-      "name": "turingq-core-client",
+      "clientId": "turingq-registration-client",
+      "name": "turingq-registration-client",
       "description": "Previous monolith",
       "enabled": true,
       "serviceAccountsEnabled": true,
-      "secret": "core-secret-change-me",
+      "secret": "registration-secret-change-me",
       "clientAuthenticatorType": "client-secret",
       "redirectUris": ["*"]
     },
@@ -39,9 +39,9 @@
   ],
   "users": [
     {
-      "username": "service-account-turingq-core-client",
+      "username": "service-account-turingq-registration-client",
       "enabled": true,
-      "serviceAccountClientId": "turingq-core-client",
+      "serviceAccountClientId": "turingq-registration-client",
       "clientRoles": {
         "realm-management": ["manage-users"]
       }

@@ -1,7 +1,7 @@
 # apiVersion: v1
 # kind: ConfigMap
 # metadata:
-#   name: core-database-configmap
+#   name: registration-database-configmap
 #   namespace: default
 # data:
 #   POSTGRES_DB: 'ituring'

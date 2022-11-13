@@ -1,33 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: core-deployment
+  name: registration-deployment
   namespace: default
 spec:
   selector:
     matchLabels:
-      app: core
+      app: registration
   replicas: 1
   template:
     metadata:
       labels:
-        app: core
+        app: registration
     spec:
       containers:
         - envFrom:
             - configMapRef:
-                name: core-configmap
+                name: registration-configmap
             - secretRef:
-                name: core-secret
-          name: core
-          image: localhost:5000/turingq-core
+                name: registration-secret
+          name: registration
+          image: localhost:5000/turingq-registration
           imagePullPolicy: IfNotPresent
       initContainers:
         - envFrom:
             - configMapRef:
-                name: core-configmap
+                name: registration-configmap
             - secretRef:
-                name: core-secret
-          name: core-migrate-db
-          image: localhost:5000/turingq-core
+                name: registration-secret
+          name: registration-migrate-db
+          image: localhost:5000/turingq-registration
           command: ['node', 'ace', 'migration:run', '--force']
