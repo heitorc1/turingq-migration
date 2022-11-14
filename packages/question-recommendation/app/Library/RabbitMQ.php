@@ -8,6 +8,7 @@ use PhpAmqpLib\Exchange\AMQPExchangeType;
 class RabbitMQ
 {
   public $channel;
+  public $queue;
 
   public function __construct()
   {
@@ -32,26 +33,10 @@ class RabbitMQ
     $this->channel->exchange_declare($exchange, AMQPExchangeType::DIRECT, false, true, false);
 
     $this->channel->queue_bind($queue, $exchange);
-
-    $this->channel->basic_consume(
-      $queue,
-      '',
-      false,
-      false,
-      false,
-      false,
-      array($this, 'processMessage')
-    );
   }
 
-  public function processMessage($message)
+  public function getChannel()
   {
-    echo $message->body;
-    $message->ack();
-  }
-
-  public function getMessages()
-  {
-    $this->channel->consume();
+    return $this->channel;
   }
 }

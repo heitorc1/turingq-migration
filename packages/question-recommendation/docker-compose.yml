@@ -21,30 +21,30 @@ services:
         volumes:
             - '.:/var/www/html'
         networks:
-            - sail
+            - turingq-question-recommendation
         depends_on:
-            - pgsql
-    pgsql:
-        image: 'postgres:14'
+            - question-recommendation-database
+    question-recommendation-database:
+        image: 'postgres:13-alpine'
+        container_name: turingq-question-recommendation-database
+        restart: always
         ports:
-            - '${FORWARD_DB_PORT:-5432}:5432'
+            - '${DB_PORT}:5432'
         environment:
-            PGPASSWORD: '${DB_PASSWORD:-secret}'
             POSTGRES_DB: '${DB_DATABASE}'
             POSTGRES_USER: '${DB_USERNAME}'
             POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
         volumes:
-            - 'sail-pgsql:/var/lib/postgresql/data'
-            - './vendor/laravel/sail/database/pgsql/create-testing-database.sql:/docker-entrypoint-initdb.d/10-create-testing-database.sql'
+            - 'turingq-question-recommendation-db-data:/var/lib/postgresql/data'
+            - ./db-init:/docker-entrypoint-initdb.d
         networks:
-            - sail
+            - turingq-question-recommendation
         healthcheck:
-            test: ["CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}"]
+            test: ['CMD', 'pg_isready', '-q', '-d', '${DB_DATABASE}', '-U', '${DB_USERNAME}']
             retries: 3
             timeout: 5s
 networks:
-    sail:
+    turingq-question-recommendation:
         driver: bridge
 volumes:
-    sail-pgsql:
-        driver: local
+    turingq-question-recommendation-db-data:

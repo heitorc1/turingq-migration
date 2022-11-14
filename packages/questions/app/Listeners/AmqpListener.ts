@@ -27,10 +27,9 @@ export default abstract class AmqpListener {
   }
 
   private mapExchange(eventName: string) {
-    if (eventName === 'new:question') return Env.get('RABBITMQ_SUBSCRIPTIONS_EXCHANGE_NAME')
-
-    if (eventName === 'new:question-recommendation')
+    if (eventName === 'new:question-recommendation') {
       return Env.get('RABBITMQ_QUESTION_RECOMMENDATION_EXCHANGE')
+    }
 
     return Env.get('RABBITMQ_SUBSCRIPTIONS_EXCHANGE_NAME')
   }
