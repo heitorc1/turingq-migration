@@ -43,6 +43,7 @@ npm run deploy:local:core
 npm run deploy:local:frontend
 npm run deploy:local:questions
 npm run deploy:local:subscriptions
+npm run deploy:local:question-recommendation
 
 ```
 

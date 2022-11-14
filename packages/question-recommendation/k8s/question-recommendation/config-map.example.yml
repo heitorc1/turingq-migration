@@ -1,0 +1,28 @@
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#  name: question-recommendation-configmap
+#  namespace: default
+# data:
+#   APP_NAME: 'TurinQ'
+#   APP_ENV: 'production'
+#   APP_DEBUG: 'false'
+#   APP_URL: 'http: //localhost'
+#   DB_CONNECTION: 'pgsql'
+#   DB_HOST: 'question-recommendation-database-service'
+#   DB_PORT: '5432'
+#   DB_DATABASE: 'turingq-question-recommendation'
+#   DB_USERNAME: 'turing'
+#   COMPOSER_ALLOW_SUPERUSER: '1'
+#   MAIL_MAILER: 'smtp'
+#   MAIL_HOST: 'smtp.mailtrap.io'
+#   MAIL_PORT: '587'
+#   MAIL_ENCRYPTION: null
+#   MAIL_FROM_ADDRESS: "info@example.com"
+#   MAIL_FROM_NAME: "TuringQ"
+#   RABBITMQ_CONNECTION_USER: 'rabbitmq'
+#   RABBITMQ_CONNECTION_PASSWORD: 'rabbitmq'
+#   RABBITMQ_CONNECTION_HOST: 'message-broker-service'
+#   RABBITMQ_CONNECTION_PORT: '5672'
+#   RABBITMQ_QUESTION_RECOMMENDATION_QUEUE: 'question.recommendation'
+#   RABBITMQ_QUESTION_RECOMMENDATION_EXCHANGE: 'turingq.question.recommendation.exchange'

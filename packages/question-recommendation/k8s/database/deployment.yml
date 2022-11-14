@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: question-recommendation-database-deployment
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: question-recommendation-database
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: question-recommendation-database
+    spec:
+      containers:
+        - envFrom:
+          - configMapRef:
+              name: question-recommendation-database-configmap
+          - secretRef:
+              name: question-recommendation-database-secret
+          name: question-recommendation-database
+          image: postgres:13-alpine

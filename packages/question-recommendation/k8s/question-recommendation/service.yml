@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: question-recommendation-service
+  namespace: default
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      port: 3004
+      targetPort: 3004
+      nodePort: 30009
+  selector:
+    app: question-recommendation
