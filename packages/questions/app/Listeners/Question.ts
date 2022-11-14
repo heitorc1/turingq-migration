@@ -9,6 +9,7 @@ export default class Question extends AmqpListener {
     const question = questionModel.toJSON()
 
     this.subscribeAuthor(question, question.author)
+    this.questionRecommendation(question)
   }
 
   private subscribeAuthor(question: Record<string, unknown>, author: Record<string, unknown>) {
@@ -23,5 +24,16 @@ export default class Question extends AmqpListener {
     }
 
     this.publishMessage('new:question', messageContent)
+  }
+
+  private questionRecommendation(question: Record<string, unknown>) {
+    const messageContent = {
+      question: {
+        id: question.id,
+        test: question.title,
+      },
+    }
+
+    this.publishMessage('new:question-recommendation', messageContent)
   }
 }

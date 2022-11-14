@@ -10,6 +10,13 @@ export default abstract class AmqpListener {
       }
     }
 
+    if (eventName === 'new:question-recommendation') {
+      return {
+        name: Env.get('RABBITMQ_QUESTION_RECOMMENDATION_REGISTRATION_QUEUE_NAME'),
+        bindingKey: Env.get('RABBITMQ_QUESTION_RECOMMENDATION_REGISTRATION_BINDING_KEY'),
+      }
+    }
+
     return {
       name: Env.get('RABBITMQ_SUBSCRIPTIONS_NEW_ANSWER_QUEUE_NAME'),
       bindingKey: Env.get('RABBITMQ_SUBSCRIPTIONS_NEW_ANSWER_BINDING_KEY'),
