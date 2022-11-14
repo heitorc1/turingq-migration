@@ -50,6 +50,8 @@ class SyncQuestions extends Command
             array($this, 'processMessage')
         );
 
+        $this->info('Consuming queue...');
+
         $channel->consume();
     }
 
