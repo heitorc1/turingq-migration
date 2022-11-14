@@ -7,20 +7,32 @@ export default abstract class AmqpListener {
       return {
         name: Env.get('RABBITMQ_SUBSCRIPTIONS_REGISTRATION_QUEUE_NAME'),
         bindingKey: Env.get('RABBITMQ_SUBSCRIPTIONS_REGISTRATION_BINDING_KEY'),
+        exchange: Env.get('RABBITMQ_SUBSCRIPTIONS_EXCHANGE_NAME'),
       }
     }
 
     if (eventName === 'new:question-recommendation') {
       return {
-        name: Env.get('RABBITMQ_QUESTION_RECOMMENDATION_REGISTRATION_QUEUE_NAME'),
-        bindingKey: Env.get('RABBITMQ_QUESTION_RECOMMENDATION_REGISTRATION_BINDING_KEY'),
+        name: Env.get('RABBITMQ_QUESTION_RECOMMENDATION_QUEUE_NAME'),
+        bindingKey: Env.get('RABBITMQ_QUESTION_RECOMMENDATION_BINDING_KEY'),
+        exchange: Env.get('RABBITMQ_QUESTION_RECOMMENDATION_EXCHANGE'),
       }
     }
 
     return {
       name: Env.get('RABBITMQ_SUBSCRIPTIONS_NEW_ANSWER_QUEUE_NAME'),
       bindingKey: Env.get('RABBITMQ_SUBSCRIPTIONS_NEW_ANSWER_BINDING_KEY'),
+      exchange: Env.get('RABBITMQ_SUBSCRIPTIONS_EXCHANGE_NAME'),
     }
+  }
+
+  private mapExchange(eventName: string) {
+    if (eventName === 'new:question') return Env.get('RABBITMQ_SUBSCRIPTIONS_EXCHANGE_NAME')
+
+    if (eventName === 'new:question-recommendation')
+      return Env.get('RABBITMQ_QUESTION_RECOMMENDATION_EXCHANGE')
+
+    return Env.get('RABBITMQ_SUBSCRIPTIONS_EXCHANGE_NAME')
   }
 
   private getAmqpConfig(eventName: string) {
@@ -33,7 +45,7 @@ export default abstract class AmqpListener {
 
     return {
       connectionUri: `amqp://${connInfo.user}:${connInfo.pass}@${connInfo.host}:${connInfo.port}`,
-      exchangeName: Env.get('RABBITMQ_SUBSCRIPTIONS_EXCHANGE_NAME'),
+      exchangeName: this.mapExchange(eventName),
       queue: this.mapEventToQueue(eventName),
     }
   }
