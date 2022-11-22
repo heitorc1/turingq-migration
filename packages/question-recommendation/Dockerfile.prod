@@ -1,0 +1,19 @@
+FROM php:8.1-fpm
+
+ENV COMPOSER_ALLOW_SUPERUSER=1
+
+RUN set -x \
+    && apt-get update -y \
+    && apt-get install -y libpng-dev zlib1g-dev \
+    && apt-get install -y libcurl4-openssl-dev curl libssl-dev libzip-dev zlib1g-dev zip unzip openssh-client git libpq-dev
+
+RUN docker-php-ext-install pdo_pgsql sockets
+
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+
+RUN usermod -u 1000 www-data
+
+COPY packages/question-recommendation /var/www
+WORKDIR /var/www
+
+RUN composer install --no-dev

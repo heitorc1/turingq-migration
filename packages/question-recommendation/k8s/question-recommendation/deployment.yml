@@ -17,6 +17,7 @@ spec:
         - name: question-recommendation
           image: localhost:5000/turingq-question-recommendation
           imagePullPolicy: IfNotPresent
+          command: ['php', 'artisan', 'sync:questions']
           envFrom:
           - configMapRef:
               name: question-recommendation-configmap
@@ -25,9 +26,10 @@ spec:
       initContainers:
         - name: question-recommendation-migrate-db
           image: localhost:5000/turingq-question-recommendation
-          command: ['php', 'artisan', 'migrate']
+          command: ['php', 'artisan', 'migrate', '--force']
           envFrom:
           - configMapRef:
               name: question-recommendation-configmap
           - secretRef:
               name: question-recommendation-secret
+

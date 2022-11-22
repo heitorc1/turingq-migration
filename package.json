@@ -10,7 +10,7 @@
     "docker:build:frontend": "docker build -t turingq/frontend:latest -f packages/frontend/Dockerfile.prod .",
     "docker:build:questions": "docker build -t turingq/questions:latest -f packages/questions/Dockerfile.prod .",
     "docker:build:subscriptions": "docker build -t turingq/subscriptions:latest -f packages/subscriptions/Dockerfile.prod .",
-    "docker:build:question-recommendation": "docker build -t turingq/question-recommendation:latest -f packages/question-recommendation/docker/Dockerfile .",
+    "docker:build:question-recommendation": "docker build -t turingq/question-recommendation:latest -f packages/question-recommendation/Dockerfile.prod .",
     "docker:local:tag:authorizer-config": "docker tag turingq/authorizer-config localhost:5000/turingq-authorizer-config",
     "docker:local:tag:registration": "docker tag turingq/registration localhost:5000/turingq-registration",
     "docker:local:tag:frontend": "docker tag turingq/frontend localhost:5000/turingq-frontend",

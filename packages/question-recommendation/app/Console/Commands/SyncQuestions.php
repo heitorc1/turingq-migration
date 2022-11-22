@@ -12,11 +12,6 @@ class SyncQuestions extends Command
 {
     private $rabbit;
 
-    public function __construct(RabbitMQ $rabbit)
-    {
-        parent::__construct();
-        $this->rabbit = $rabbit;
-    }
     /**
      * The name and signature of the console command.
      *
@@ -38,9 +33,10 @@ class SyncQuestions extends Command
      */
     public function handle()
     {
-        $channel = $this->rabbit->getChannel();
+        $connection = new RabbitMQ();
+        $this->rabbit = $connection->getChannel();
 
-        $channel->basic_consume(
+        $this->rabbit->basic_consume(
             'question.recommendation',
             '',
             false,
@@ -52,7 +48,7 @@ class SyncQuestions extends Command
 
         $this->info('Consuming queue...');
 
-        $channel->consume();
+        $this->rabbit->consume();
     }
 
     public function processMessage($message)

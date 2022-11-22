@@ -12,7 +12,6 @@
 #   DB_HOST: 'question-recommendation-database-service'
 #   DB_PORT: '5432'
 #   DB_DATABASE: 'turingq-question-recommendation'
-#   DB_USERNAME: 'turing'
 #   COMPOSER_ALLOW_SUPERUSER: '1'
 #   MAIL_MAILER: 'smtp'
 #   MAIL_HOST: 'smtp.mailtrap.io'

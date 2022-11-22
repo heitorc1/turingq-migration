@@ -7,10 +7,9 @@ use PhpAmqpLib\Exchange\AMQPExchangeType;
 
 class RabbitMQ
 {
-  public $channel;
-  public $queue;
+  private $connection;
 
-  public function __construct()
+  private function connect()
   {
     $host = env('RABBITMQ_CONNECTION_HOST');
     $port = env('RABBITMQ_CONNECTION_PORT');
@@ -37,6 +36,7 @@ class RabbitMQ
 
   public function getChannel()
   {
+    $this->connect();
     return $this->channel;
   }
 }
