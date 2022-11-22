@@ -22,3 +22,12 @@ spec:
               name: question-recommendation-configmap
           - secretRef:
               name: question-recommendation-secret
+      initContainers:
+        - name: question-recommendation-migrate-db
+          image: localhost:5000/turingq-question-recommendation
+          command: ['php', 'artisan', 'migrate']
+          envFrom:
+          - configMapRef:
+              name: question-recommendation-configmap
+          - secretRef:
+              name: question-recommendation-secret

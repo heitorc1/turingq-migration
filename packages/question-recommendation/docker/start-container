@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
 
-cd /var/www/html
-composer install --optimize-autoloader --no-dev
 php artisan migrate
 php artisan sync:questions

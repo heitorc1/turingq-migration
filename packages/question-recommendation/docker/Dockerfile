@@ -13,8 +13,6 @@ ENV TZ=UTC
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN mkdir /usr/local/bin/composer
-
 RUN apt-get update \
     && apt-get install -y gnupg gosu curl ca-certificates zip unzip git supervisor sqlite3 libcap2-bin libpng-dev python2 \
     && mkdir -p ~/.gnupg \
@@ -34,7 +32,6 @@ RUN apt-get update \
        php8.1-ldap \
        php8.1-msgpack php8.1-igbinary php8.1-redis php8.1-swoole \
        php8.1-memcached php8.1-pcov php8.1-xdebug \
-    && php -r "readfile('https://getcomposer.org/installer');" | php -- --install-dir=/usr/local/bin/composer --filename=composer \
     && curl -sLS https://deb.nodesource.com/setup_$NODE_VERSION.x | bash - \
     && apt-get install -y nodejs \
     && npm install -g npm \
@@ -50,16 +47,24 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+
 RUN setcap "cap_net_bind_service=+ep" /usr/bin/php8.1
 
 RUN groupadd --force -g $WWWGROUP sail
 RUN useradd -ms /bin/bash --no-user-group -g $WWWGROUP -u 1337 sail
 
-COPY ./docker/start-container /usr/local/bin/start-container
-COPY ./docker/php.ini /etc/php/8.1/cli/conf.d/99-sail.ini
-COPY . .
-RUN chmod +x /usr/local/bin/start-container
+COPY packages/question-recommendation/docker/start-container /usr/local/bin/start-container
+COPY packages/question-recommendation/docker/php.ini /etc/php/8.1/cli/conf.d/99-sail.ini
+
+COPY packages/question-recommendation /var/www/html
+COPY packages/question-recommendation/composer.json /var/www/html/composer.json
+COPY packages/question-recommendation/composer.lock /var/www/html/composer.lock
+
+RUN composer install --optimize-autoloader --no-dev
+# RUN chmod +x /usr/local/bin/start-container
 
 EXPOSE 3004
 
-ENTRYPOINT ["start-container"]
+CMD ['php', 'artisan', 'sync:questions']
+# ENTRYPOINT ["start-container"]

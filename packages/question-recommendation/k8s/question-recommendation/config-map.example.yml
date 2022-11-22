@@ -20,8 +20,6 @@
 #   MAIL_ENCRYPTION: null
 #   MAIL_FROM_ADDRESS: "info@example.com"
 #   MAIL_FROM_NAME: "TuringQ"
-#   RABBITMQ_CONNECTION_USER: 'rabbitmq'
-#   RABBITMQ_CONNECTION_PASSWORD: 'rabbitmq'
 #   RABBITMQ_CONNECTION_HOST: 'message-broker-service'
 #   RABBITMQ_CONNECTION_PORT: '5672'
 #   RABBITMQ_QUESTION_RECOMMENDATION_QUEUE: 'question.recommendation'
